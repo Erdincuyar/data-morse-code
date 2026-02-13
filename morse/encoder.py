@@ -9,21 +9,34 @@ Functions:
 
 from morse.mapping import MORSE
 
-def encode(text):
-    """
-    Encodes the given text into Morse code.
-    Words are separated by a pipe (|) and letters by a space.
-    """
-    pass  # YOUR CODE HERE
-
-
 def encode_word(word):
     """
-    Encodes a single word into Morse code.
-    Letters are separated by a space.
+    Tek bir kelimeyi Morse koduna çevirir.
+    Harfler arasına bir boşluk koyar.
     """
-    pass  # YOUR CODE HERE
+    # Her harfi Morse karşılığına çevirip listeye atıyoruz
+    # .upper() kullanıyoruz ki 'h' ile 'H' aynı sonucu versin
+    encoded_letters = []
+    for letter in word.upper():
+        if letter in MORSE:
+            encoded_letters.append(MORSE[letter])
 
+    # Listeyi boşlukla birleştiriyoruz: ".... .."
+    return " ".join(encoded_letters)
+
+def encode(text):
+    """
+    Tüm metni Morse koduna çevirir.
+    Kelimeler arasına '|' koyar.
+    """
+    # Metni kelimelere bölüyoruz: ["Hi", "Guys"]
+    words = text.split()
+
+    # Her kelimeyi encode_word ile çeviriyoruz: [".... ..", "--. ..- -.-- ..."]
+    encoded_list = [encode_word(w) for w in words]
+
+    # Kelimeleri pipe (|) ile birleştiriyoruz: ".... ..|--. ..- -.-- ..."
+    return "|".join(encoded_list)
 
 if __name__ == "__main__":
     # Example usage for one word
